@@ -105,7 +105,7 @@ public class TicketMachine
      */
     public int emptyMachine()
     {
-        int amountToRefund;
+        int totalToRefund;
         totalToRefund = total;
         total = 0;
         return totalToRefund;
