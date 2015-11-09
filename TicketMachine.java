@@ -6,7 +6,7 @@
  * sensible amounts of money, and will only print a ticket
  * if enough money has been input.
  * 
- * @author David J. Barnes and Michael KÃ¶lling
+ * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
  */
 public class TicketMachine
@@ -17,6 +17,19 @@ public class TicketMachine
     private int balance;
     // The total amount of money collected by this machine.
     private int total;
+    // Permite hacer descuentos
+    private boolean descuento;
+    
+    /**
+     * Descuento
+     */
+    public TicketMachine (int cost, boolean descontar)
+    {
+        price = cost;
+        balance = 0;
+        total = 0;
+        descuento = descontar;
+    }
 
     /**
      * Create a machine that issues tickets of the given price.
@@ -82,8 +95,9 @@ public class TicketMachine
             balance = balance - price;
         }
         else {
+            int amountLefttoPay = price - balance;
             System.out.println("You must insert at least: " +
-                               (price - balance) + " more cents.");
+                               (amountLefttoPay) + " more cents.");
                     
         }
     }
@@ -101,13 +115,26 @@ public class TicketMachine
     }
     
     /**
-     * Vacia la maquina y dice el dinero que habia
-     */
+    *Metodo para vaciar la máquina.
+    */
     public int emptyMachine()
     {
-        int totalToRefund;
-        totalToRefund = total;
-        total = 0;
-        return totalToRefund;
+        int recaudacion = -1;
+        if (balance == 0) {
+            recaudacion = total;
+            total = 0;
+        }
+        return recaudacion;
     }
-}
+    
+    /**
+     * Método para saber si hay decuentos
+     */
+    public void printTicketWithDiscount()
+    {
+        if (descuento == false)
+        {
+            System.out.print("Esta máquina no puede realizar descuentos");
+        }
+    }
+    }
